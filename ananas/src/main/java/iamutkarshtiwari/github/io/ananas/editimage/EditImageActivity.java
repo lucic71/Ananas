@@ -74,6 +74,9 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
     public static final int MODE_BRIGHTNESS = 8;
     public static final int MODE_SATURATION = 9;
 
+    public static final String GO_BACK_WITHOUT_CHANGE = "go_back_without_change";
+    private static boolean goBackWithoutChange = false;
+
     private final String[] requiredPermissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -289,6 +292,7 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
                 break;
             default:
                 if (canAutoExit()) {
+                    goBackWithoutChange = true;
                     onSaveTaskDone();
                 } else {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -326,6 +330,7 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
         returnIntent.putExtra(ImageEditorIntentBuilder.SOURCE_PATH, sourceFilePath);
         returnIntent.putExtra(ImageEditorIntentBuilder.OUTPUT_PATH, outputFilePath);
         returnIntent.putExtra(IS_IMAGE_EDITED, numberOfOperations > 0);
+        returnIntent.putExtra(GO_BACK_WITHOUT_CHANGE, goBackWithoutChange);
 
         setResult(RESULT_OK, returnIntent);
         finish();
