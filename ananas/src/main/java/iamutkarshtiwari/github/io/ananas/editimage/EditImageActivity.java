@@ -492,6 +492,8 @@ public class EditImageActivity extends BaseActivity implements OnLoadingDialogLi
     private final class SaveBtnClick implements OnClickListener {
         @Override
         public void onClick(View v) {
+            goBackWithoutChange = false;
+
             if (numberOfOperations == 0) {
                 onSaveTaskDone();
             } else {
